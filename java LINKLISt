@@ -130,10 +130,13 @@ public static boolean  checkloop(Node headoflinklist) {
     Node slow=headoflinklist;
      Node  fst=headoflinklist;
     while(fst !=null && fst.next!=null){
-      prevfast=fst.next.next;
-      fst=fst.next.next;
-      slow=slow.next;
       
+     
+   
+      slow=slow.next;
+      fst=fst.next.next;
+        // System.out.println(prevfast.data+   "   ganne ka juse" +fst.data);
+       prevfast=fst;
   if(fst==slow){
     return true;
   }
@@ -142,9 +145,17 @@ public static boolean  checkloop(Node headoflinklist) {
 }
 
 public static void breakLoop(Node headoflinklist) {
-  Node beg=headoflinklist,fast=headoflinklist;
+ 
     if(checkloop( headoflinklist)){
-      prevfast.next=null;
+ Node beg=headoflinklist,fast=prevfast,update=null;
+while (beg!=fast){
+update=fast;
+  beg=beg.next;
+  fast=fast.next;
+
+}
+
+  update.next=null;
   // System.out.println(prevfast.data);
     }
 }
@@ -159,16 +170,17 @@ public static void main(String[] args) {
   n1.next=n2;
     Node n3= new Node();
     n3.data=4;
-     n2.next=n3;
+n2.next=n3;
     Node n4= new Node();
     n4.data=5;
-     n3.next=n4;
+n3.next=n4;
     Node n5= new Node();
     n5.data=6;
     n4.next=n5;
-    n5.next=n2;   // create loop
+     n5.next=n3;
+    
     breakLoop(n1);
-
+//System.err.println(n1.data +"  this one ");
 for (Node tem=n1;tem!=null; tem=tem.next) {
     
     System.out.println(tem.data);
